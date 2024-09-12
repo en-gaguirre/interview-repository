@@ -2,7 +2,7 @@ import java.util.HashSet;
 
 public class PairSum {
 
-    // Function to find all pairs in the array with a given sum
+   
     public static void findPairs(int[] arr, int target) {
         HashSet<Integer> seenNumbers = new HashSet<>(); // To store visited numbers
         HashSet<String> foundPairs = new HashSet<>();   // To store unique pairs
@@ -10,7 +10,7 @@ public class PairSum {
         for (int num : arr) {
             int complement = target - num;  // Calculate complement (target - num)
 
-            // Check if the complement exists in the set
+            
             if (seenNumbers.contains(complement)) {
                 // Create a pair with smaller number first for uniqueness
                 int smaller = Math.min(num, complement);
