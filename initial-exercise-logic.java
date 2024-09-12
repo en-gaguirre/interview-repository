@@ -36,7 +36,6 @@ public class PairSum {
         int[] arr = {1, 5, 7, -1, 5};
         int target = 6;
 
-        // Find and print pairs that sum to the target
         findPairs(arr, target);
     }
 }
