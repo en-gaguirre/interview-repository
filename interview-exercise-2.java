@@ -16,15 +16,15 @@ public class LoginAutomationTest {
         WebElement passwordField = driver.findElement(By.id("password"));
         WebElement loginButton = driver.findElement(By.id("loginButton"));
         
-        usernameField.sendKeys("admin");  // Error 5 (hardcoded credentials)
+        usernameField.sendKeys("admin");  
         passwordField.sendKeys("password123");
 
-        loginButton.click(); // Error 4 (missing wait for element visibility)
+        loginButton.click(); 
 
         
         WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement dashboard = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dashbord"))); 
        
-        driver.quit(); /
+        driver.quit(); 
     }
 }
