@@ -1,55 +1,39 @@
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
-import static io.restassured.RestAssured.*;
 
-public class ApiTest {
-
-    @Test
-    public void testGetUsersEndpoint() {
-        // Base URI of the API
-        RestAssured.baseURI = "https://reqres.in";
-
-         given()
-            .contentType(ContentType.JSON) 
-        .when()
-            .get("/api/users?page=2") 
-        .then()
-            .statusCode(200) 
-            .body("page", equalTo(2)) 
-            .body("data", is(not(empty()))) 
-            .body("data[0].email", containsString("@")); 
-    }
+public class PostRequestTest {
 
     @Test
-    public void testCreateUserEndpoint() {
-       
-        RestAssured.baseURI = "https://reqres.in";
+    public void testCreateUser() {
+        // Base URI
+        RestAssured.baseURI = "https://api.example.com";
 
-        String requestBody = """
-        {
-            "name": "John Doe",
-            "job": "Software Developer"
-        }
-        """;
+        // JSON payload for the POST request
+        String requestBody = "{\n" +
+                "  \"name\": \"John Doe\",\n" +
+                "  \"email\": \"john.doe@example.com\",\n" +
+                "  \"password\": \"SecurePass123\"\n" +
+                "}";
 
-        Response response = given()
-            .contentType(ContentType.JSON) 
-            .body(requestBody) 
-        .when()
-            .post("/api/users") 
-        .then()
-            .statusCode(201)
-            .extract()
-            .response(); 
+        // Sending the request
+        Response response = RestAssured.given()
+                .header("Content-Type", "application/json")
+                .body(requestBody)
+                .when()
+                .get("/createUser")
+                .then()
+                .log().all() // Log the response for debugging
+                .statusCode(200)
+                .body("message", equalTo("User created successfully"))
+                .body("userId", notNullValue()) // Ensure userId is present in the response
+                .extract()
+                .response();
 
-        String id = response.jsonPath().getString("id");
-        String createdAt = response.jsonPath().getString("createdAt");
-
-        System.out.println("User created with ID: " + id);
-        System.out.println("Creation timestamp: " + createdAt);
+        // Extract specific fields from the response for further validation
+        String userId = response.jsonPath().getString("userId");
+        assert userId != null && !userId.isEmpty();
     }
 }
