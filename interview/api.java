@@ -11,7 +11,7 @@ public class PostRequestTest {
         // Base URI
         RestAssured.baseURI = "https://api.example.com";
 
-        // JSON payload for the POST request
+        // JSON payload for the request
         String requestBody = "{\n" +
                 "  \"name\": \"John Doe\",\n" +
                 "  \"email\": \"john.doe@example.com\",\n" +
