@@ -5,21 +5,27 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginAutomationTest {
+public class selenium {
 
     public static void main(String[] args) {        
-        WebDriver driver = new ChromDriver(); 
+        WebDriver driver = new ChromeDriver(); 
         driver.get("www.example.com/login");  
-        
-        // Finding elements on the page
-        WebElement usernameField = driver.findElement(By.id("usename"));
-        WebElement passwordField = driver.findElement(By.id("password"));
-        WebElement loginButton = driver.findElement(By.id("loginButton"));
-        
-        usernameField.sendKeys("admin");  
-        passwordField.sendKeys("password123");
 
-        loginButton.click(); 
+        try {
+            Thread.sleep(4000); //
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Finding elements on the page
+        WebElement username = driver.findElement(By.id("usename"));
+        WebElement password = driver.findElement(By.id("password"));
+        WebElement loginBtn = driver.findElements(By.id("loginButton"));
+        
+        usernameField.write("admin");  
+        passwordField.write("password123");
+
+        loginButton.click();
 
         
         WebDriverWait wait = new WebDriverWait(driver, 10);
